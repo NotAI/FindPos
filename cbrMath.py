@@ -66,13 +66,11 @@ def find6(sevenCard):
     return result
     
 def find5(sevenCard, numb):
-    print numb
     for i in range(0,7):
         # find if it has num+1 to num+4
         if numb[i] > 10:
             continue
         elif numb[i] == 10 and (1 not in numb):
-            print numb
             continue
         elif numb[i]+1 not in numb:
             continue
@@ -83,8 +81,6 @@ def find5(sevenCard, numb):
         elif numb[i] != 10 and numb[i]+4 not in numb:
             continue
         else:
-            print "find 5"
-            print numb
             return 1
     return 0;
 
