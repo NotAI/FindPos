@@ -66,11 +66,13 @@ def find6(sevenCard):
     return result
     
 def find5(sevenCard, numb):
+    print numb
     for i in range(0,7):
         # find if it has num+1 to num+4
         if numb[i] > 10:
             continue
         elif numb[i] == 10 and (1 not in numb):
+            print numb
             continue
         elif numb[i]+1 not in numb:
             continue
@@ -81,6 +83,8 @@ def find5(sevenCard, numb):
         elif numb[i] != 10 and numb[i]+4 not in numb:
             continue
         else:
+            print "find 5"
+            print numb
             return 1
     return 0;
 
@@ -116,7 +120,11 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
                 # find number's
                 numb = [0] * 7
                 for i in range(0,7):
-                    numb[i] = sevenCard[i]%13
+                    if sevenCard[i]%13 == 0:
+                        numb[i] = 13
+                    else :
+                        numb[i] = sevenCard[i]%13
+
                 # find number repeat times
                 numbList = [0] * 13
                 for i in range(0,7):
@@ -155,7 +163,10 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
             # find number's
             numb = [0] * 7
             for i in range(0,7):
-                numb[i] = sevenCard[i]%13
+                if sevenCard[i]%13 == 0:
+                    numb[i] = 13
+                else :
+                    numb[i] = sevenCard[i]%13
             # find number repeat times
             numbList = [0] * 13
             for i in range(0,7):
@@ -188,7 +199,10 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
         # find number's
         numb = [0] * 7
         for i in range(0,7):
-            numb[i] = sevenCard[i]%13
+            if sevenCard[i]%13 == 0:
+                numb[i] = 13
+            else :
+                numb[i] = sevenCard[i]%13
         # find number repeat times
         numbList = [0] * 13
         for i in range(0,7):
