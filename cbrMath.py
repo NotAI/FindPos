@@ -169,9 +169,9 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
                 nList[8] += 1
             elif find7(sevenCard,numbList):
                 nList[7] += 1
-            elif find6(sevenCard,numb):
+            elif find6(sevenCard):
                 nList[6] += 1
-            elif find5(sevenCard):
+            elif find5(sevenCard,numb):
                 nList[5] += 1
             elif find4(sevenCard,numbList):
                 nList[4] += 1
@@ -205,10 +205,10 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
         elif find7(sevenCard,numbList):
             print "CBR has full house"
             return 0
-        elif find6(sevenCard,numb):
+        elif find6(sevenCard):
             print "CBR has flush"
             return 0
-        elif find5(sevenCard):
+        elif find5(sevenCard,numb):
             print "CBR has straight"
             return 0
         elif find4(sevenCard,numbList):
