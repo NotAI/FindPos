@@ -88,17 +88,22 @@ class xiaqiClass(object):
 
             # Read in files to print current hand power
 
+            fold = raw_input("f ?>")
+            if fold == "f" or fold == "F":
+                continue
+
             # Read in 3 desk card
             table = self.creatTable()  # leave for future algorithm
             
             # Calculate 5 card possiblity and output
+
             posForFiveCard,combForFiveCard = cbrMath.findpos(cbr.c0, cbr.c1, table.d0, table.d1, table.d2)
             self.printPoss(posForFiveCard,combForFiveCard)
 
             # F or get 6th card number
             d3Str = raw_input("f or 4th card in table>")
             if d3Str == "f" or d3Str == "F":
-                    continue
+                continue
             else:
                 suitStr = d3Str.split(' ')[0]
                 numStr = d3Str.split(' ')[1]

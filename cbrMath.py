@@ -57,7 +57,15 @@ def find7(sevenCard,numbList):
     result = (3 in numbList) and (2 in numbList)
     return result;
 
-def find6(sevenCard,numb):
+def find6(sevenCard):
+    suitList = [0] * 4
+    for i in range(0,7):
+        suitList[(sevenCard[i]-1)/13] += 1
+        
+    result = (suitList[0] > 4) or (suitList[1] > 4) or (suitList[2] > 4) or (suitList[3] > 4)
+    return result
+    
+def find5(sevenCard, numb):
     for i in range(0,7):
         # find if it has num+1 to num+4
         if numb[i] > 10:
@@ -76,14 +84,6 @@ def find6(sevenCard,numb):
             return 1
     return 0;
 
-def find5(sevenCard):
-    suitList = [0] * 4
-    for i in range(0,7):
-        suitList[(sevenCard[i]-1)/13] += 1
-        
-    result = (suitList[0] > 4) or (suitList[1] > 4) or (suitList[2] > 4) or (suitList[3] > 4)
-    return result
-    
 def find4(sevenCard,numbList):
     result = (3 in numbList)
     return result;
@@ -130,9 +130,9 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
                     nList[8] += 1
                 elif find7(sevenCard,numbList):
                     nList[7] += 1
-                elif find6(sevenCard,numb):
+                elif find6(sevenCard):
                     nList[6] += 1
-                elif find5(sevenCard):
+                elif find5(sevenCard,numb):
                     nList[5] += 1
                 elif find4(sevenCard,numbList):
                     nList[4] += 1
