@@ -3,6 +3,7 @@ from people import *
 from table import *
 from outputString import *
 import cbrMath
+import cbr2Card
 class xiaqiClass(object):
 
     def __init__(self):
@@ -76,17 +77,18 @@ class xiaqiClass(object):
 
 
     def start(self):
-#       print askForPeople;
-#        try:
-#            self.peopleNum = int(raw_input("people number>"))
-#        except:
-#            print "Please only input integer."
-#            sys.exit(0)
+        print askForPeople;
+        try:
+            self.peopleNum = int(raw_input("people number>"))
+        except:
+            print "Please only input integer."
+            sys.exit(0)
         
         while (True):
             cbr = self.creatCBR()
 
             # Read in files to print current hand power
+            cbr2Card.printPos(self.peopleNum,cbr.c0,cbr.c1)
 
             fold = raw_input("f ?>")
             if fold == "f" or fold == "F":
