@@ -108,9 +108,9 @@ class xiaqiClass(object):
             if d3Str == "f" or d3Str == "F":
                 continue
             else:
-                suitStr = d3Str.split(' ')[0]
-                numStr = d3Str.split(' ')[1]
-                d3 = int(suitStr)*13 + int(numStr)
+                suit = int(d3Str.split(' ')[0])
+                numb = int(d3Str.split(' ')[1])
+                d3 = card(suit,numb)
                 table.updateCard(d3)
 
             posForSixCard,combForSixCard = cbrMath.findpos(cbr.c0, cbr.c1, table.d0, table.d1, table.d2, table.d3)
@@ -121,9 +121,9 @@ class xiaqiClass(object):
             if d4Str == "f" or d4Str == "F":
                     continue
             else:
-                suitStr = d4Str.split(' ')[0]
-                numStr = d4Str.split(' ')[1]
-                d4 = int(suitStr)*13 + int(numStr)
+                suit = int(d4Str.split(' ')[0])
+                numb = int(d4Str.split(' ')[1])
+                d4 = card(suit,numb)
                 table.updateCard(d3,d4)
                 
             cbrMath.findpos(cbr.c0, cbr.c1, table.d0, table.d1, table.d2, table.d3, table.d4)

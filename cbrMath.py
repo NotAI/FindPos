@@ -166,8 +166,8 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
     elif (d4==0):
         for i4 in range(1,53):
             d4 = creatCard(i4)
-            invalidd4 = (d4.suit==c0.suit and d3.numb==c0.numb) or (d4.suit==c1.suit and d4.numb==c1.numb)\
-                        (d4.suit==d0.suit and d3.numb==d0.numb) or (d4.suit==d1.suit and d4.numb==d1.numb)\
+            invalidd4 = (d4.suit==c0.suit and d3.numb==c0.numb) or (d4.suit==c1.suit and d4.numb==c1.numb) or\
+                        (d4.suit==d0.suit and d3.numb==d0.numb) or (d4.suit==d1.suit and d4.numb==d1.numb) or\
                         (d4.suit==d2.suit and d3.numb==d2.numb) or (d4.suit==d1.suit and d4.numb==d3.numb)
             if invalidd4 :
                 continue;
