@@ -20,9 +20,10 @@ def printPos(peopleNum,c0,c1):
         sys.exit(0)
 
     # change c0 c1 to string in file to compare
-    sameSuit = ((c0-1)/13==(c1-1)/13)  
-    numb0 = (c0-1)%13
-    numb1 = (c1-1)%13
+    sameSuit = (c0.suit==c1.suit)  
+    numb0 = c0.numb - 1
+    numb1 = c1.numb - 1
+
 
     if numb0 != 0 and (numb0 <= numb1 or numb1==0):
         s = toString(numb0) + toString(numb1)

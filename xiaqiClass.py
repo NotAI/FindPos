@@ -1,6 +1,7 @@
 import sys
 from people import *
 from table import *
+from card import *
 from outputString import *
 import cbrMath
 import cbr2Card
@@ -21,17 +22,17 @@ class xiaqiClass(object):
         print askForDeck3
         try:
             threeCard = raw_input("First Card>")
-            suitStr = threeCard.split(' ')[0]
-            numStr = threeCard.split(' ')[1]
-            d0 = int(suitStr)*13 + int(numStr)
+            suit = int(threeCard.split(' ')[0])
+            numb = int(threeCard.split(' ')[1])
+            d0 = card(suit, numb)
             threeCard = raw_input("Second Card>")
-            suitStr = threeCard.split(' ')[0]
-            numStr = threeCard.split(' ')[1]
-            d1 = int(suitStr)*13 + int(numStr)
+            suit = int(threeCard.split(' ')[0])
+            numb = int(threeCard.split(' ')[1])
+            d1 = card(suit, numb)
             threeCard = raw_input("Third Card>")
-            suitStr = threeCard.split(' ')[0]
-            numStr = threeCard.split(' ')[1]
-            d2 = int(suitStr)*13 + int(numStr)
+            suit = int(threeCard.split(' ')[0])
+            numb = int(threeCard.split(' ')[1])
+            d2 = card(suit, numb)
         except ValueError:
             print "Could not convert data to an integer."
         except:
@@ -53,13 +54,13 @@ class xiaqiClass(object):
         print askForHand
         try:
             twoCard = raw_input("First Card>")
-            suitStr = twoCard.split(' ')[0]
-            numStr = twoCard.split(' ')[1]
-            c0 = int(suitStr)*13 + int(numStr)
+            suit = int(twoCard.split(' ')[0])
+            numb = int(twoCard.split(' ')[1])
+            c0 = card(suit,numb)
             twoCard = raw_input("Second Card>")
-            suitStr = twoCard.split(' ')[0]
-            numStr = twoCard.split(' ')[1]
-            c1 = int(suitStr)*13 + int(numStr)
+            suit= int(twoCard.split(' ')[0])
+            numb= int(twoCard.split(' ')[1])
+            c1 = card(suit,numb)
         except ValueError:
             print "Could not convert data to an integer."
         except:
