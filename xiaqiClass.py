@@ -21,17 +21,34 @@ class xiaqiClass(object):
 
         print askForDeck3
         try:
-            threeCard = raw_input("First Card>")
-            suit = int(threeCard.split(' ')[0])
-            numb = int(threeCard.split(' ')[1])
+            threeCard = int(raw_input("First Card>"))
+            suit = (threeCard-1)/13
+            if threeCard % 13 == 0:
+                numb = 13
+            else :
+                numb = threeCard % 13
+            #suit = int(threeCard.split(' ')[0])
+            #numb = int(threeCard.split(' ')[1])
             d0 = card(suit, numb)
-            threeCard = raw_input("Second Card>")
-            suit = int(threeCard.split(' ')[0])
-            numb = int(threeCard.split(' ')[1])
+
+            threeCard = int(raw_input("Second Card>"))
+            suit = (threeCard-1)/13
+            if threeCard % 13 == 0:
+                numb = 13
+            else :
+                numb = threeCard % 13
+            #suit = int(threeCard.split(' ')[0])
+            #numb = int(threeCard.split(' ')[1])
             d1 = card(suit, numb)
-            threeCard = raw_input("Third Card>")
-            suit = int(threeCard.split(' ')[0])
-            numb = int(threeCard.split(' ')[1])
+
+            threeCard = int(raw_input("Third Card>"))
+            suit = (threeCard-1)/13
+            if threeCard % 13 == 0:
+                numb = 13
+            else :
+                numb = threeCard % 13
+            #suit = int(threeCard.split(' ')[0])
+            #numb = int(threeCard.split(' ')[1])
             d2 = card(suit, numb)
         except ValueError:
             print "Could not convert data to an integer."
@@ -53,13 +70,23 @@ class xiaqiClass(object):
 
         print askForHand
         try:
-            twoCard = raw_input("First Card>")
-            suit = int(twoCard.split(' ')[0])
-            numb = int(twoCard.split(' ')[1])
+            twoCard = int(raw_input("First Card>"))
+            #suit = int(twoCard.split(' ')[0])
+            #numb = int(twoCard.split(' ')[1])
+            suit = (twoCard-1)/13
+            if twoCard % 13 == 0:
+                numb = 13
+            else :
+                numb = twoCard % 13
             c0 = card(suit,numb)
-            twoCard = raw_input("Second Card>")
-            suit= int(twoCard.split(' ')[0])
-            numb= int(twoCard.split(' ')[1])
+            twoCard = int(raw_input("Second Card>"))
+            suit = (twoCard-1)/13
+            if twoCard % 13 == 0:
+                numb = 13
+            else :
+                numb = twoCard % 13
+            #suit= int(twoCard.split(' ')[0])
+            #numb= int(twoCard.split(' ')[1])
             c1 = card(suit,numb)
         except ValueError:
             print "Could not convert data to an integer."
@@ -108,8 +135,14 @@ class xiaqiClass(object):
             if d3Str == "f" or d3Str == "F":
                 continue
             else:
-                suit = int(d3Str.split(' ')[0])
-                numb = int(d3Str.split(' ')[1])
+                d3Num = int(d3Str)
+                suit = (d3Num-1)/13
+                if d3Num % 13 == 0:
+                    numb = 13
+                else :
+                    numb = d3Num % 13
+                #suit = int(d3Str.split(' ')[0])
+                #numb = int(d3Str.split(' ')[1])
                 d3 = card(suit,numb)
                 table.updateCard(d3)
 
@@ -121,8 +154,14 @@ class xiaqiClass(object):
             if d4Str == "f" or d4Str == "F":
                     continue
             else:
-                suit = int(d4Str.split(' ')[0])
-                numb = int(d4Str.split(' ')[1])
+                d4Num = int(d4Str)
+                suit = (d4Num-1)/13
+                if d4Num % 13 == 0:
+                    numb = 13
+                else :
+                    numb = d4Num % 13
+                #suit = int(d4Str.split(' ')[0])
+                #numb = int(d4Str.split(' ')[1])
                 d4 = card(suit,numb)
                 table.updateCard(d3,d4)
                 
