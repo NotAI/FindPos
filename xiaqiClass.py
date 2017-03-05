@@ -1,4 +1,6 @@
 import sys
+import time
+import os
 from people import *
 from table import *
 from card import *
@@ -20,79 +22,48 @@ class xiaqiClass(object):
         #bet = int(raw_input("bet>"))
 
         print askForDeck3
-        try:
-            threeCard = int(raw_input("First Card>"))
-            suit = (threeCard-1)/13
-            if threeCard % 13 == 0:
-                numb = 13
-            else :
-                numb = threeCard % 13
-            #suit = int(threeCard.split(' ')[0])
-            #numb = int(threeCard.split(' ')[1])
-            d0 = card(suit, numb)
+        while True :
+            try:
+                threeCard = raw_input("First Card>")
+                suit = int(threeCard[0])
+                numb = int(threeCard[1:])
+                d0 = card(suit,numb)
 
-            threeCard = int(raw_input("Second Card>"))
-            suit = (threeCard-1)/13
-            if threeCard % 13 == 0:
-                numb = 13
-            else :
-                numb = threeCard % 13
-            #suit = int(threeCard.split(' ')[0])
-            #numb = int(threeCard.split(' ')[1])
-            d1 = card(suit, numb)
+                threeCard = raw_input("Second Card>")
+                suit= int(threeCard[0])
+                numb= int(threeCard[1:])
+                d1 = card(suit,numb)
 
-            threeCard = int(raw_input("Third Card>"))
-            suit = (threeCard-1)/13
-            if threeCard % 13 == 0:
-                numb = 13
-            else :
-                numb = threeCard % 13
-            #suit = int(threeCard.split(' ')[0])
-            #numb = int(threeCard.split(' ')[1])
-            d2 = card(suit, numb)
-        except ValueError:
-            print "Could not convert data to an integer."
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
-            sys.exit(0)
+                threeCard = raw_input("Third Card>")
+                suit= int(threeCard[0])
+                numb= int(threeCard[1:])
+                d2 = card(suit,numb)
+                break
+            except:
+                print "Unexpected error:", sys.exc_info()[0]
+                print "please re-enter your hand"
+                pass
 
         #tableIns = table(board,bet,d0,d1,d2)
         tableIns = table(0,0,d0,d1,d2)
         return tableIns
 
-    def creatCBR(self):
-        #print askForLocation;
-        #try:
-        #    location = int(raw_input("location>"))
-        #except:
-        #   print "Please only input integer."
-        #   sys.exit(0)
-
-        print askForHand
-        try:
-            twoCard = int(raw_input("First Card>"))
-            #suit = int(twoCard.split(' ')[0])
-            #numb = int(twoCard.split(' ')[1])
-            suit = (twoCard-1)/13
-            if twoCard % 13 == 0:
-                numb = 13
-            else :
-                numb = twoCard % 13
-            c0 = card(suit,numb)
-            twoCard = int(raw_input("Second Card>"))
-            suit = (twoCard-1)/13
-            if twoCard % 13 == 0:
-                numb = 13
-            else :
-                numb = twoCard % 13
-            #suit= int(twoCard.split(' ')[0])
-            #numb= int(twoCard.split(' ')[1])
-            c1 = card(suit,numb)
-        except ValueError:
-            print "Could not convert data to an integer."
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
-            sys.exit(0)
+    def creatCBR(self): #print askForLocation; #try: #    location = int(raw_input("location>")) #except: #   print "Please only input integer." #   sys.exit(0) print askForHand
+        while True :
+            try:
+                twoCard = raw_input("First Card>")
+                suit = int(twoCard[0])
+                numb = int(twoCard[1:])
+                c0 = card(suit,numb)
+                twoCard = raw_input("Second Card>")
+                suit= int(twoCard[0])
+                numb= int(twoCard[1:])
+                c1 = card(suit,numb)
+                break
+            except:
+                print "Unexpected error:", sys.exc_info()[0]
+                print "please re-enter your hand"
+                pass
 
         #cbr = people(c0,c1,location);
         cbr = people(c0,c1,1);
@@ -103,27 +74,59 @@ class xiaqiClass(object):
                            combList[6], posList[6], combList[5], posList[5], combList[4], posList[4],
                            combList[3], posList[3], combList[2], posList[2], combList[1], posList[1], combList[0], posList[0],)
 
+    def openTodayFile(self):
+        script_dir = os.path.dirname(__file__)
+        fileName = time.ctime().split(' ')
+        fileStr = "data/"+fileName[4]+fileName[1]+fileName[2]+".txt"
+        filePath = os.path.join(script_dir,fileStr)
+        filePointer= open(filePath, "a")
+        return filePointer
+    
+    def write_pirntFold(self,fp):
+        tmpStr = "\tCBR FOLD.\r\n"
+        fp.write(tmpStr)
+        print "===================================="
+        print "====CBR FOLD, start next game======="
+        print "===================================="
 
     def start(self):
-        print askForPeople;
-        try:
-            self.peopleNum = int(raw_input("people number>"))
-        except:
-            print "Please only input integer."
-            sys.exit(0)
-        
+        fp = self.openTodayFile()
+
+        while True :
+            print askForPeople;
+            try:
+                self.peopleNum = int(raw_input("people number>"))
+                if self.peopleNum>1 and self.peopleNum<=10 :
+                    fp.write("peopleNum: %s\r\n" % self.peopleNum)
+                    break
+                else :
+                    print "People number is not valid. Please re-enter"
+                    continue
+            except:
+                print "Unexpected error:", sys.exc_info()[0]
+                print "please re-enter the people number"
+                pass
+        gameCnt = 0
         while (True):
+            fp.closed
+            fp = self.openTodayFile()
+            gameCnt += 1
             cbr = self.creatCBR()
+            tmpStr = "\tGAME %s: CBR has card %s %s, %s %s.\r\n" % (gameCnt,cbr.c0.suit,cbr.c0.numb,cbr.c1.suit,cbr.c1.numb)
+            fp.write(tmpStr)
 
             # Read in files to print current hand power
             cbr2Card.printPos(self.peopleNum,cbr.c0,cbr.c1)
 
             fold = raw_input("f ?>")
             if fold == "f" or fold == "F":
+                self.write_pirntFold(fp)
                 continue
 
             # Read in 3 desk card
             table = self.creatTable()  # leave for future algorithm
+            tmpStr = "\t         Table has card %s %s, %s %s, %s %s.\r\n" % (table.d0.suit,table.d0.numb,table.d1.suit,table.d1.numb,table.d2.suit,table.d2.numb)
+            fp.write(tmpStr)
             
             # Calculate 5 card possiblity and output
 
@@ -131,38 +134,54 @@ class xiaqiClass(object):
             self.printPoss(posForFiveCard,combForFiveCard)
 
             # F or get 6th card number
-            d3Str = raw_input("f or 4th card in table>")
-            if d3Str == "f" or d3Str == "F":
+            while True :
+                try:
+                    d3Str = raw_input("f or 4th card in table>")
+                    if d3Str == "f" or d3Str == "F":
+                        fold = "f"
+                        break
+                    else :
+                        suit = int(d3Str[0])
+                        numb = int(d3Str[1:])
+                        d3 = card(suit,numb)
+                        tmpStr = "\t         Table 4th card %s %s\r\n" % (d3.suit, d3.numb)
+                        fp.write(tmpStr)
+                        break
+                except:
+                    print "Unexpected error:", sys.exc_info()[0]
+                    print "please re-enter the 4th card"
+                    pass
+            if fold == "f" :
+                self.write_pirntFold(fp)
                 continue
-            else:
-                d3Num = int(d3Str)
-                suit = (d3Num-1)/13
-                if d3Num % 13 == 0:
-                    numb = 13
-                else :
-                    numb = d3Num % 13
-                #suit = int(d3Str.split(' ')[0])
-                #numb = int(d3Str.split(' ')[1])
-                d3 = card(suit,numb)
+            else :
                 table.updateCard(d3)
 
             posForSixCard,combForSixCard = cbrMath.findpos(cbr.c0, cbr.c1, table.d0, table.d1, table.d2, table.d3)
             self.printPoss(posForSixCard,combForSixCard)
             
             # F or get 7th card number
-            d4Str = raw_input("f or 5th card in table>")
-            if d4Str == "f" or d4Str == "F":
-                    continue
-            else:
-                d4Num = int(d4Str)
-                suit = (d4Num-1)/13
-                if d4Num % 13 == 0:
-                    numb = 13
-                else :
-                    numb = d4Num % 13
-                #suit = int(d4Str.split(' ')[0])
-                #numb = int(d4Str.split(' ')[1])
-                d4 = card(suit,numb)
+            while True :
+                try:
+                    d4Str = raw_input("f or 5th card in table>")
+                    if d4Str == "f" or d4Str == "F":
+                        fold = "f"
+                        break
+                    else :
+                        suit = int(d4Str[0])
+                        numb = int(d4Str[1:])
+                        d4 = card(suit,numb)
+                        tmpStr = "\t         Table 5th card %s %s\r\n" % (d4.suit, d4.numb)
+                        fp.write(tmpStr)
+                        break
+                except:
+                    print "Unexpected error:", sys.exc_info()[0]
+                    print "please re-enter the 5th card"
+                    pass
+            if fold == "f" :
+                self.write_pirntFold(fp)
+                continue
+            else :
                 table.updateCard(d3,d4)
                 
             cbrMath.findpos(cbr.c0, cbr.c1, table.d0, table.d1, table.d2, table.d3, table.d4)
