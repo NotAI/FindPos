@@ -22,7 +22,7 @@ except :
     print "Please don't print CTRL+C !!!"
     user = "sanguozhizhang@gmail.com"
     pwd = "cbrcknhws"
-    recipient = ["hwslqc@gmail.com"] # ,"kainan.chen.cn@gmail.com"
+    recipient = ["hwslqc@gmail.com","kainan.chen.cn@gmail.com"]
     subject = "CBR's program record"
     endTime = time.clock()
     body = "CBR program running time is %r seconds\r\n" % (endTime-startTime)
