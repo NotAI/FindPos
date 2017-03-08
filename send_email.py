@@ -15,7 +15,7 @@ def send_email(user, pwd, recipient, subject, body, fileName, filePath):
     msg = MIMEMultipart()
     msg['From'] = user
     TO = recipient if type(recipient) is list else [recipient]
-    msg['To'] = "hwslqc@gmail.com"
+    msg['To'] = recipient[0] +','+ recipient[1] +',' + recipient[2]
     msg['Subject'] = subject
 
     body = body
