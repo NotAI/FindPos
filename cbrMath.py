@@ -249,29 +249,180 @@ def findpos(c0,c1,d0,d1,d2,d3=0,d4=0):
 
     return pList[1:],nList[1:]
 
-def findpos_1(c0,c1,d0,d1,d2):
-    outsList = [0] * 9
-    pList = [0] * 10
-   
-    # the main thoughts is to find the outs for 10 to 2
-    nList[10] = find_out10(c0,c1,d0,d1,d2,d3,d4);
-    nList[9]  = find_out9(c0,c1,d0,d1,d2,d3,d4);
-    nList[8]  = find_out8(c0,c1,d0,d1,d2,d3,d4);
-    nList[7]  = find_out7(c0,c1,d0,d1,d2,d3,d4);
-    nList[6]  = find_out6(c0,c1,d0,d1,d2,d3,d4);
-    nList[5]  = find_out5(c0,c1,d0,d1,d2,d3,d4);
-    nList[4]  = find_out4(c0,c1,d0,d1,d2,d3,d4);
-    nList[3]  = find_out3(c0,c1,d0,d1,d2,d3,d4);
-    nList[2]  = find_out2(c0,c1,d0,d1,d2,d3,d4);
-    
-    wholeCase = 47*46 + 0.0;
+#def findpos_1(c0,c1,d0,d1,d2):
+#    outsList = [0] * 9
+#    pList = [0] * 10
+#   
+#    # the main thoughts is to find the outs for 10 to 2
+#    nList[10] = find_out10(c0,c1,d0,d1,d2,d3,d4);
+#    nList[9]  = find_out9(c0,c1,d0,d1,d2,d3,d4);
+#    nList[8]  = find_out8(c0,c1,d0,d1,d2,d3,d4);
+#    nList[7]  = find_out7(c0,c1,d0,d1,d2,d3,d4);
+#    nList[6]  = find_out6(c0,c1,d0,d1,d2,d3,d4);
+#    nList[5]  = find_out5(c0,c1,d0,d1,d2,d3,d4);
+#    nList[4]  = find_out4(c0,c1,d0,d1,d2,d3,d4);
+#    nList[3]  = find_out3(c0,c1,d0,d1,d2,d3,d4);
+#    nList[2]  = find_out2(c0,c1,d0,d1,d2,d3,d4);
+#    
+#    wholeCase = 47*46 + 0.0;
+#
+#    for i in range(2,11):
+#        pList[i] = nList[i]/wholeCase
+#    pList[1]  = 1 - pList[10] - pList[9] - pList[8] - pList[7] - pList[6] - pList[5] - pList[4] - pList[3] - pList[2]
+#
+#    return pList
 
-    for i in range(2,11):
-        pList[i] = nList[i]/wholeCase
-    pList[1]  = 1 - pList[10] - pList[9] - pList[8] - pList[7] - pList[6] - pList[5] - pList[4] - pList[3] - pList[2]
-
-    return pList
-
-def checkStrength(c0,c1): # Check Table and Output strength
+# compare function, 1 means first 5 card bigger, 0 means same.
+# c0List and c1List should be sorted
+def comp10(c0List, c1List):     # passed
     return 0;
 
+def comp9(c0List, c1List):      # passed
+    if c0List[0].numb > c1List[0].numb:
+        return 1
+    elif c0List[0].numb < c1List[0].numb:
+        return -1
+    else :
+        return 0
+
+def comp8(c0List, c1List):      # need to change all 1(A) to 14 
+    if c0List[2].numb > c1List[2].numb:
+        return 1
+    elif c0List[2].numb == c1List[2].numb:  # both have 4 of a set of same card
+        if c0List[0].numb > c1List[0].numb or c0List[4].numb > c1List[4].numb:
+            return 1
+        elif c0List[0].numb < c1List[0].numb or c0List[4].numb < c1List[4].numb:
+            return -1
+        else :
+            return 0
+    else :
+        return -1
+
+def comp7(c0List, c1List):      # same as comp8
+    return comp8(c0List, c1List)
+
+def comp6(c0List, c1List):
+    if c0List[4].numb > c1List[4].numb:
+        return 1
+    elif c0List[4].numb < c1List[4].numb:
+        return -1
+    elif c0List[3].numb > c1List[3].numb:
+        return 1
+    elif c0List[3].numb < c1List[3].numb:
+        return -1
+    elif c0List[2].numb > c1List[2].numb:
+        return 1
+    elif c0List[2].numb < c1List[2].numb:
+        return -1
+    elif c0List[1].numb > c1List[1].numb:
+        return 1
+    elif c0List[1].numb < c1List[3].numb:
+        return -1
+    elif c0List[0].numb > c1List[0].numb:
+        return 1
+    elif c0List[0].numb < c1List[0].numb:
+        return -1
+    else :
+        return 0
+
+def comp5(c0List, c1List):
+    if c0List[4].numb > c1List[4].numb:
+        return 1
+    elif c0List[4].numb < c1List[4].numb:
+        return -1
+    else :
+        return 0
+
+def comp4(c0List, c1List):
+    if c0List[1].numb == c0List[2].numb and c0List[2].numb == c0List[3].numb:
+        c0Left = [c0List[0], c0List[4]]
+    elif c0List[1].numb == c0List[2].numb:
+        c0Left = [c0List[3], c0List[4]]
+    else:
+        c0Left = [c0List[0], c0List[1]]
+
+    if c1List[1].numb == c1List[2].numb and c1List[2].numb == c1List[3].numb:
+        c1Left = [c1List[0], c1List[4]]
+    elif c1List[1].numb == c1List[2].numb:
+        c1Left = [c1List[3], c1List[4]]
+    else:
+        c1Left = [c1List[0], c1List[1]]
+
+
+    if c0List[2].numb > c1List[2].numb:     # compare 3 set card
+        return 1
+    elif c0List[2].numb < c1List[2].numb:
+        return -1
+    if c0Left[1].numb > c1Left[1].numb:     # compare left high card
+        return 1
+    elif c0Left[1].numb < c1Left[1].numb:
+        return -1
+    elif c0Left[0].numb > c1Left[0].numb:   # compare left low card
+        return 1
+    elif c0Left[0].numb < c1Left[0].numb:
+        return -1
+    else :
+        return 0
+
+def comp3(c0List, c1List):      # compare 2 pair
+    c0Pair = []
+    c1Pair = []
+    for i in range(0,4):
+        for j in range(i+1,5):
+            if c0List[i].numb == c0List[j].numb:
+                c0Pair.append(c0List[i].numb)
+                del c0List[i]
+                del c0List[j-1]
+            if c1List[i].numb == c01ist[j].numb:
+                c1Pair.append(c1List[i].numb)
+                del c1List[i]
+                del c1List[j-1]
+    
+    if c0Pair[1] > c1Pair[1]:               #compare high pair
+        return 1
+    elif c0Pair[1] < c1Pair[1]:
+        return -1
+    elif c0Pair[0] > c1Pair[0]:             #compare low  pair
+        return 1
+    elif c0Pair[0] < c1Pair[0]:
+        return -1
+    elif c0List[0].numb > c1List[0].numb:   #both pair are same
+        return 1
+    elif c0List[0].numb < c1List[0].numb:   #both pair are same
+        return -1
+    else :
+        return 0
+        
+def comp2(c0List, c1List):      # compare 1 pair
+    c0Pair = []
+    c1Pair = []
+    for i in range(0,4):
+        for j in range(i+1,5):
+            if c0List[i].numb == c0List[j].numb:
+                c0Pair.append(c0List[i].numb)
+                del c0List[i]
+                del c0List[j-1]
+            if c1List[i].numb == c01ist[j].numb:
+                c1Pair.append(c1List[i].numb)
+                del c1List[i]
+                del c1List[j-1]
+
+    
+    if c0Pair[0] > c1Pair[0]:               #compare pair
+        return 1
+    elif c0Pair[0] < c1Pair[0]:
+        return -1
+    elif c0List[2].numb > c1List[2].numb:
+        return 1
+    elif c0List[2].numb < c1List[2].numb:
+        return -1
+    elif c0List[1].numb > c1List[1].numb:
+        return 1
+    elif c0List[1].numb < c1List[1].numb:
+        return -1
+    elif c0List[0].numb > c1List[0].numb:
+        return 1
+    elif c0List[0].numb < c1List[0].numb:
+        return -1
+    else :
+        return 0
