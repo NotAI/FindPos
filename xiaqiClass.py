@@ -5,8 +5,8 @@ from people import *
 from table import *
 from card import *
 from outputString import *
-import cbrMath
 import cbr2Card
+import cbrMath
 class xiaqiClass(object):
 
     def __init__(self):
@@ -109,6 +109,7 @@ class xiaqiClass(object):
         gameCnt = 0
         while (True):
             fp.closed
+            # write this game data to today's file
             fp = self.openTodayFile()
             gameCnt += 1
             cbr = self.creatCBR()
@@ -116,7 +117,9 @@ class xiaqiClass(object):
             fp.write(tmpStr)
 
             # Read in files to print current hand power
-            cbr2Card.printPos(self.peopleNum,cbr.c0,cbr.c1)
+            line = cbr2Card.printPos(self.peopleNum,cbr.c0,cbr.c1)
+            print "--------------------------------------------------------------------------"
+            cbr2Card.preFlop(line)
 
             fold = raw_input("f ?>")
             if fold == "f" or fold == "F":
