@@ -32,6 +32,6 @@ except :
     fileName = timeList[4]+timeList[1]+timeList[2]+".txt"
     fileStr = "data/"+timeList[4]+timeList[1]+timeList[2]+".txt"
     filePath = os.path.join(script_dir,fileStr)
-    send_email(user, pwd, recipient, subject, body, fileName, filePath)
+    #send_email(user, pwd, recipient, subject, body, fileName, filePath)
 
 print "CPU time is %r" % (endTime-startTime)

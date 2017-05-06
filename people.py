@@ -1,7 +1,7 @@
 class people(object):
 
     # card0 and card1 is expected to be int number between [0,53]
-    def __init__(self,card0, card1, location):
+    def __init__(self,card0, card1, location=1):
         self.c0 = card0;    # 0 means unknown
         self.c1 = card1;
         self.location = location;

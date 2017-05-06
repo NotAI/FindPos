@@ -51,6 +51,8 @@ class xiaqiClass(object):
     def creatCBR(self): #print askForLocation; #try: #    location = int(raw_input("location>")) #except: #   print "Please only input integer." #   sys.exit(0) print askForHand
         while True :
             try:
+                loc = raw_input("location>")    # 0 means early location, 1 means middle, 2 means late
+                locT= int(loc)
                 twoCard = raw_input("First Card>")
                 suit = int(twoCard[0])
                 numb = int(twoCard[1:])
@@ -66,7 +68,7 @@ class xiaqiClass(object):
                 pass
 
         #cbr = people(c0,c1,location);
-        cbr = people(c0,c1,1);
+        cbr = people(c0,c1,locT);
         return cbr
 
     def printPoss(self,posList,combList):
@@ -119,7 +121,7 @@ class xiaqiClass(object):
             # Read in files to print current hand power
             line = cbr2Card.printPos(self.peopleNum,cbr.c0,cbr.c1)
             print "--------------------------------------------------------------------------"
-            cbr2Card.preFlop(line)
+            cbr2Card.preFlop(line,cbr.location)
 
             fold = raw_input("f ?>")
             if fold == "f" or fold == "F":

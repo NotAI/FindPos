@@ -2,19 +2,118 @@ import sys
 import os
 import random
 
-type0 = ["1009","1008","1007"]
-type1 = ["0109","0108","0107","0148","0136","0146"]
-type2 = ["0139","0039","0149","0049","0118","0018","0128","0028","0138","0038","0117","0017","0127","0027"]
-type3 = ["0115","0114","0113","0112","0111"]
-type4 = ["0124","0123","0122"]
-type5 = ["0134","0133","0132"]
-type6 = ["0015","0014","0013"]
-type7 = ["2009","2008","2007"]        
-type8 = ["2006","2005","2004"]        
-type9 = ["3009","3008","3007","3006"]        
-type10 = ["0119","0019"]
-type11 = ["0129","0029"]        
+type0 = ["3009","3008","3007"]
+type1 = ["2009","2008","2007","2006","2005","2004"]
+type2 = ["1009","1008","1007","1006"]
+type3 = ["0149","0049"]
+type4 = ["0139","0039"]
+type5 = ["0109","0108","0107","0148","0136","0146"]
+type6 = ["0129","0029","0119","0019","0148","0048","0138","0038","0128","0028","0147","0047","0137","0037"]
+type7 = ["0145","0144","0143","0142","0141"]        
+type8 = ["0134","0133","0132"]        
+type9 = ["0124","012","0122"]        
+type10 = ["0045","0044","0043"]
 
+def type0Algo(randBB):
+    print "--> Raise no matter location, doc didn't say raise how much ????BB"
+    print "--> if (other people raise again):"
+    if (randBB<50):
+        print "-->    AA,KK continue raise 1/3BB, QQ consider people strength, call or raise"
+    else:
+        print "-->    AA,KK continue raise 1/2BB, QQ consider people strength, call or raise"
+            
+def type1Algo(loc,randNum,randBB):
+    if (loc==0):    # first 1/3 location
+        if (randNum < 70):
+           print "--> Raise, how much????"
+        else :
+           print "--> Call"
+    else:            # middle or late location
+        if (randNum < 80):
+           print "--> Raise, "
+        else :
+           print "--> Call"
+
+        if (randBB < 50):
+           print "--> 3BB."
+        else :
+           print "--> 4BB."
+
+def type2Algo(loc,randNum,randBB):
+    if (loc<2):    # first 2/3 location
+        if (randNum < 20):
+           print "--> Raise, 3BB"
+        else :
+           print "--> Call"
+    else:            # middle or late location
+        if (randNum < 80):
+           print "--> Raise, 3BB"
+        else :
+           print "--> Call"
+            
+def type3Algo(loc,randNum,randBB):
+    if (loc==1):    # first 1/3 location
+        if (randNum < 75):
+           print "--> Raise, ???BB"
+        else :
+           print "--> Call"
+    else:            # middle or late location
+        if (randNum < 90):
+           print "--> Raise, ????BB"
+        else :
+           print "--> Call"
+
+def type4Algo(loc,randNum,randBB):
+    type3Algo(loc,randNum,randBB);
+   
+def type5Algo(loc,randNum,randBB):
+    if (loc<2):    # first 1/3 location
+        if (randNum < 90):
+           print "--> Call if in 4BB"
+        else :
+           print "--> Fold"
+    else:            # late location
+        if (randBB <50):
+            if (randNum < 50):
+               print "--> Raise, 3BB"
+            else :
+               print "--> Call"
+        else:
+            if (randNum < 90):
+               print "--> Call if in 4BB"
+            else :
+               print "--> Fold"
+
+def type6Algo(loc,randNum,randBB):
+    if (randNum < 80):
+        print "--> Call if in 4BB"
+    else :
+        print "--> Fold"
+        
+def type7Algo(loc,randNum,randBB):
+    if (randNum < 60):
+        print "--> Call if in 3BB"
+    else :
+        print "--> Fold"
+        
+def type8Algo(loc,randNum,randBB):
+    if (randNum < 40):
+        print "--> Call if in 3BB"
+    else :
+        print "--> Fold"
+
+def type9Algo(loc,randNum,randBB):
+    if (randNum < 30):
+        print "--> Call if in 3BB"
+    else :
+        print "--> Fold"
+
+def type10Algo(loc,randNum,randBB):
+    if (randNum < 20):
+        print "--> Call if in 3BB"
+    else :
+        print "--> Fold"
+        
 def toString(x):
     return {
         9: 'T',
@@ -51,103 +150,41 @@ def printPos(peopleNum,c0,c1):
     for line in filePointer:
         cnt += 1
         strList = line.split(' ')
-
         if strList[0] == s:
             print " CBR, you card is [%r], numb %r out of 169." % (s,cnt)
             #print " CBR, you card win  rate is  %r percent." % strList[1]
             #print " CBR, you card drew rate is  %r percent." % strList[2]
             return line.strip()
         
-def preFlop(line): # can add location, money information later
+def preFlop(line,loc=1): # can add location, money information later
     randNum = random.randint(0,99)
+    randBB  = random.randint(0,99)
     print "CBR AI suggest:"
     strList = line.split(' ')
     cardType = strList[-1]
     #print "cardType: %r" % cardType[0:-1]
     if cardType in type0:
-        print "--> Raise no matter location, doc didn't say raise how much BB"
-        print "--> if (other people raise again):"
-        print "-->    AA,KK continue raise, QQ consider people strength, call or raise"
+        type0Algo(randBB)
     elif cardType in type1:
-        if (randNum < 90):
-            print "--> If in early location: Call in 4BB"
-            print "--> If in late location: Raise in 3BB"
-        else :
-            print "--> If in early location: Fold"
-            print "--> If in late location: Raise in 3BB"
+        type1Algo(loc,randNum,randBB)
     elif  cardType in type2:
-        if (randNum < 80):
-            print "--> Call"
-        else :
-            print "--> Fold"
+        type2Algo(loc,randNum,randBB)
     elif  cardType in type3:
-        if (randNum < 60):
-            print "--> Call"
-        else :
-            print "--> Fold"
+        type3Algo(loc,randNum,randBB)
     elif  cardType in type4:
-        if (randNum < 40):
-            print "--> Call"
-        else :
-            print "--> Fold"
+        type4Algo(loc,randNum,randBB)
     elif  cardType in type5:
-        if (randNum < 30):
-            print "--> Call"
-        else :
-            print "--> Fold"
+        type5Algo(loc,randNum,randBB)
     elif  cardType in type6:
-        if (randNum < 20):
-            print "--> Call"
-        else :
-            print "--> Fold"
+        type6Algo(loc,randNum,randBB)
     elif  cardType in type7:
-        print "-->If in early location:"
-        if (randNum < 70):
-            print "--> Raise"
-        else :
-            print "--> Call"
-        print "-->If in mid/late location:"
-        if (randNum < 80):
-            print "--> Raise in 4/5 BB"
-        else :
-            print "--> Call"
+        type7Algo(loc,randNum,randBB)
     elif  cardType in type8:
-        print "-->If in early location:"
-        if (randNum < 30):
-            print "--> Raise"
-        else :
-            print "--> Call"
-        print "-->If in mid/late location:"
-        if (randNum < 80):
-            print "--> Raise in 4/5 BB"
-        else :
-            print "--> Call"
+        type8Algo(loc,randNum,randBB)
     elif  cardType in type9:
-        print "-->If in early location:"
-        print "--> WHAT THE FUCK IS MOST TIME CALL? SOMETIME RAISE? PROGRAM NEED NUMBER!!!"
+        type9Algo(loc,randNum,randBB)
     elif  cardType in type10:
-        print "-->If in early location:"
-        if (randNum < 75):
-            print "--> Raise"
-        else :
-            print "--> Call"
-        print "-->If in mid/late location:"
-        if (randNum < 90):
-            print "--> Raise"
-        else :
-            print "--> Call"
-    elif  cardType in type10:
-        print "-->If in early location:"
-        if (randNum < 75):
-            print "--> Raise"
-        else :
-            print "--> Call"
-        print "-->If in mid/late location:"
-        if (randNum < 90):
-            print "--> Raise"
-        else :
-            print "--> Call"
-        print "-->If someone raise again: Fold"
+        type10Algo(loc,randNum,randBB)
     else:
         print "--> Fold"
 
