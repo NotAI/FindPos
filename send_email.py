@@ -1,7 +1,7 @@
 import os
 import sys
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
@@ -15,7 +15,7 @@ def send_email(user, pwd, recipient, subject, body, fileName, filePath):
     msg = MIMEMultipart()
     msg['From'] = user
     TO = recipient if type(recipient) is list else [recipient]
-    msg['To'] = recipient[0] +','+ recipient[1] +',' + recipient[2]
+    msg['To'] = recipient[0]  +','+ recipient[1] +',' + recipient[2]
     msg['Subject'] = subject
 
     body = body
@@ -32,8 +32,8 @@ def send_email(user, pwd, recipient, subject, body, fileName, filePath):
 
     msg.attach(part)
     text = msg.as_string()
-    #print "======================================file name:%r" % filename
-    #print "======================================attach name:%r" % attachment
+    #print("======================================file name:%r" % filename)
+    #print("======================================attach name:%r" % attachment)
 
     try:
         # connection to GMAIL
@@ -44,7 +44,7 @@ def send_email(user, pwd, recipient, subject, body, fileName, filePath):
         # send emails
         server.sendmail(user, TO, text)
         server.close()
-        print 'successfully sent the mail'
+        print('successfully sent the mail')
     except:
-        print "Unexpected error:", sys.exc_info()[0]
-        print "failed to send mail"
+        print("Unexpected error:", sys.exc_info()[0])
+        print("failed to send mail")

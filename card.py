@@ -10,5 +10,5 @@ class card(object):
         self.numb = numb
         
     def pi(self):    # print all information 
-        print "suit is %r" % self.suit
-        print "numb is %r" % self.numb
+        print("suit is %r" % self.suit)
+        print("numb is %r" % self.numb)
